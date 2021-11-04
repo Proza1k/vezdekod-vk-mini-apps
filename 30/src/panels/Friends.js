@@ -25,7 +25,7 @@ const FriendsList = () => {
     )
 }
 
-Friends.propTypes = {
+FriendsList.propTypes = {
 	id: PropTypes.string.isRequired,
 	go: PropTypes.func.isRequired,
 };
