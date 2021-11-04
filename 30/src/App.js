@@ -36,13 +36,16 @@ const App = () => {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
 			setPopout(null);
+			const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "request_id": "32test", "params": {"user_id": user.id}});
+            setFriendsData(friends)
+			console.log(friends)
 		}
+
 		async function getFriends() {
-            const friends = await bridge.send("VKWebAppGetFriends", { "multi": true })
+            const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "request_id": "32test", "params": {"user_id": "1", "v":"5.131", "access_token":"your_token"}});
             setFriendsData(friends)
 		}
 
-		getFriends();
 		getUser();
 	}, []);
 
