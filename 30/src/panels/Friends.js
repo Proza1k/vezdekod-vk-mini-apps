@@ -18,16 +18,16 @@ const renderingFriendsList = (friendsList) => {
 
 const Friends = ({ id, go }) => {
     const [friendsData, setFriendsData] = useState(null)
-    const [FriendsList, setFriendsList] = useState(renderingFriendsList(friendsData))
+    const [FriendsList, setFriendsList] = useState(<ScreenSpinner />)
     useEffect(() => {
         const getFriends = async () => {
             const friends = await bridge.send("VKWebAppGetFriends", {});
-            console.log(friends)
             setFriendsData(friends)
-            setFriendsList(renderingFriendsList(friends))
+            setFriendsList(renderingFriendsList(friendsData))
         }
 
         getFriends()
+        console.log(friendsData)
     }, [])
 
     return (
