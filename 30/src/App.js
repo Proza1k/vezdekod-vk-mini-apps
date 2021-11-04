@@ -7,11 +7,23 @@ import Home from './panels/Home';
 import Persik from './panels/Persik';
 import Friends from './panels/Friends';
 
+const renderingFriendsList = (friendsList) => {
+    if (friendsList !== null) {
+        return (
+            friendsList.users.map(user => {<SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>})
+        )
+    } else {
+        return (
+            <ScreenSpinner />
+        )
+    }
+}
+
 const App = () => {
 	const [activePanel, setActivePanel] = useState('home');
 	const [fetchedUser, setUser] = useState(null);
 	const [popout, setPopout] = useState(<ScreenSpinner size='large' />);
-
+	const [friendsData, setFriendsData] = useState(null)
 	useEffect(() => {
 		bridge.subscribe(({ detail: { type, data }}) => {
 			if (type === 'VKWebAppUpdateConfig') {
@@ -20,12 +32,18 @@ const App = () => {
 				document.body.attributes.setNamedItem(schemeAttribute);
 			}
 		});
-		async function fetchData() {
+		async function getUser() {
 			const user = await bridge.send('VKWebAppGetUserInfo');
 			setUser(user);
 			setPopout(null);
 		}
-		fetchData();
+		async function getFriends() {
+            const friends = await bridge.send("VKWebAppGetFriends", { "multi": true })
+            setFriendsData(friends)
+		}
+
+		getFriends();
+		getUser();
 	}, []);
 
 	const go = e => {
@@ -37,7 +55,7 @@ const App = () => {
 			<AppRoot>
 				<View activePanel={activePanel} popout={popout}>
 					<Home id='home' fetchedUser={fetchedUser} go={go} />
-					<Friends id="friends-list" go={go} />
+					<Friends id="friends-list" friendsData={friendsData} friengo={go} />
 					<Persik id='persik' go={go} />
 				</View>
 			</AppRoot>
