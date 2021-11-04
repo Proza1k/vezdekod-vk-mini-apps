@@ -34,18 +34,13 @@ const App = () => {
 		});
 		async function getUser() {
 			const userData = await bridge.send('VKWebAppGetUserInfo').then(async (user) => {
-				setUser(userData);
+				setUser(user);
 				setPopout(null);
-				const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "params": {"user_id": user.id}}).then((userFriends) => {
+				const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "params": {"user_id": user.id, "fields": "nickname,photo_50"}}).then((userFriends) => {
 					setFriendsData(userFriends)
 					console.log(userFriends)
 				});
 			});
-		}
-
-		async function getFriends() {
-            const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "request_id": "32test", "params": {"user_id": "1", "v":"5.131", "access_token":"your_token"}});
-            setFriendsData(friends)
 		}
 
 		getUser();
