@@ -18,7 +18,7 @@ const FriendsList = () => {
         <View activePanel="header">
             <Panel id="header">Вибраника</Panel>
             <Group>
-                {friendsList.data.users.map(user => {
+                {friendsList.users.map(user => {
                     <SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>
                 })}
             </Group>
