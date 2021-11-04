@@ -1,4 +1,4 @@
-import { Group, Panel, SimpleCell, Avatar, IconButton, View, ScreenSpinner } from '@vkontakte/vkui'
+import { Group, Panel, SimpleCell, Avatar, IconButton, PanelHeader, ScreenSpinner } from '@vkontakte/vkui'
 import { Icon28RssFeedOutline } from '@vkontakte/icons';
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
@@ -6,13 +6,7 @@ import bridge from '@vkontakte/vk-bridge';
 
 const renderingFriendsList = (friendsList) => {
     if (friendsList !== null) {
-        return (
-            <Group>
-                {friendsList.users.map(user => {
-                    <SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>
-                })}
-            </Group>
-        )
+        return friendsList.users.map(user => {<SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>})
     } else {
         return (
             <ScreenSpinner />
@@ -20,9 +14,9 @@ const renderingFriendsList = (friendsList) => {
     }
 }
 
-const FriendsList = () => {
+const Friends = () => {
     const [friendsData, setFriendsData] = useState(null)
-    const [friendsList, setFriendsList] = useState(renderingFriendsList(friendsData))
+    const [FriendsList, setFriendsList] = useState(renderingFriendsList(friendsData))
     useEffect(() => {
         const getFriends = async () => {
             const friends = await bridge.send("VKWebAppGetFriends", {});
@@ -34,16 +28,18 @@ const FriendsList = () => {
     }, [])
 
     return (
-        <View activePanel="header">
-            <Panel id="header">Вибраника</Panel>
-            {friendsList}
-        </View>
+        <Panel id={id}>
+            <PanelHeader id="header">Вибраника</PanelHeader>
+            <Group header={<Header mode="secondary">Список друзей</Header>}>
+                <FriendsList />
+            </Group>
+        </Panel>
     )
 }
 
-FriendsList.propTypes = {
+Friends.propTypes = {
     id: PropTypes.string.isRequired,
     go: PropTypes.func.isRequired,
 };
 
-export default FriendsList
+export default Friends
