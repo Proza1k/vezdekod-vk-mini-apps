@@ -33,12 +33,14 @@ const App = () => {
 			}
 		});
 		async function getUser() {
-			const user = await bridge.send('VKWebAppGetUserInfo');
-			setUser(user);
-			setPopout(null);
-			const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "request_id": "32test", "params": {"user_id": user.id}});
-            setFriendsData(friends)
-			console.log(friends)
+			const userData = await bridge.send('VKWebAppGetUserInfo').then(async (user) => {
+				setUser(userData);
+				setPopout(null);
+				const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "params": {"user_id": user.id}}).then((userFriends) => {
+					setFriendsData(userFriends)
+					console.log(userFriends)
+				});
+			});
 		}
 
 		async function getFriends() {
@@ -58,7 +60,7 @@ const App = () => {
 			<AppRoot>
 				<View activePanel={activePanel} popout={popout}>
 					<Home id='home' fetchedUser={fetchedUser} go={go} />
-					<Friends id="friends-list" friendsData={friendsData} friengo={go} />
+					<Friends id="friends-list" friendsData={friendsData} go={go} />
 					<Persik id='persik' go={go} />
 				</View>
 			</AppRoot>
