@@ -7,7 +7,7 @@ const Friends = ({ id, friendsData, go }) => (
     <Panel id={id}>
         <PanelHeader id="header" left={<PanelHeaderBack onClick={go} data-to="home" />}>Вибраника</PanelHeader>
         <Group header={<Header mode="secondary">Список друзей</Header>}>
-            {friendsData && friendsData.profiles.map(user => { <SimpleCell before={<Avatar size={48} src={user.photo_50} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell> })}
+            {friendsData && friendsData.items.map(user => { <SimpleCell before={<Avatar size={48} src={user.photo_50} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell> })}
         </Group>
     </Panel>
 )
