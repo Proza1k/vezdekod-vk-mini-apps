@@ -18,7 +18,7 @@ const renderingFriendsList = (friendsList) => {
 
 const Friends = ({ id, go }) => {
     const [friendsData, setFriendsData] = useState(null)
-    const [FriendsList, setFriendsList] = useState(<ScreenSpinner />)
+    const [friendsList, setFriendsList] = useState(null)
     useEffect(() => {
         const getFriends = async () => {
             const friends = await bridge.send("VKWebAppGetFriends", {});
@@ -34,7 +34,7 @@ const Friends = ({ id, go }) => {
         <Panel id={id}>
             <PanelHeader id="header">Вибраника</PanelHeader>
             <Group header={<Header mode="secondary">Список друзей</Header>}>
-                <FriendsList />
+                {friendsList}
             </Group>
         </Panel>
     )
