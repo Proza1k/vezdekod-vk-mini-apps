@@ -6,7 +6,9 @@ import bridge from '@vkontakte/vk-bridge';
 
 const renderingFriendsList = (friendsList) => {
     if (friendsList !== null) {
-        return friendsList.users.map(user => {<SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>})
+        return (
+            friendsList.users.map(user => {<SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>})
+        )
     } else {
         return (
             <ScreenSpinner />
@@ -20,6 +22,7 @@ const Friends = ({ id, go }) => {
     useEffect(() => {
         const getFriends = async () => {
             const friends = await bridge.send("VKWebAppGetFriends", {});
+            console.log(friends)
             setFriendsData(friends)
             setFriendsList(renderingFriendsList(friends))
         }
