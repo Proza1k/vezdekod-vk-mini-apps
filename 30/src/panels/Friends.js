@@ -1,4 +1,4 @@
-import { Group, Panel, SimpleCell, Avatar, IconButton, PanelHeader, ScreenSpinner } from '@vkontakte/vkui'
+import { Group, Header, Panel, SimpleCell, Avatar, IconButton, PanelHeader, ScreenSpinner } from '@vkontakte/vkui'
 import { Icon28RssFeedOutline } from '@vkontakte/icons';
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
