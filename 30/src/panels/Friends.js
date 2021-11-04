@@ -2,6 +2,7 @@ import { Group, Panel, SimpleCell, Avatar, IconButton, View, ScreenSpinner } fro
 import { Icon28RssFeedOutline } from '@vkontakte/icons';
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
+import bridge from '@vkontakte/vk-bridge';
 
 const renderingFriendsList = (friendsList) => {
     if (friendsList !== null) {
