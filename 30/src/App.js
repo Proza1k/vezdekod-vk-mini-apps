@@ -36,7 +36,7 @@ const App = () => {
 			const userData = await bridge.send('VKWebAppGetUserInfo').then(async (user) => {
 				setUser(user);
 				setPopout(null);
-				const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "params": {"user_id": user.id, "fields": "nickname,photo_50"}}).then((userFriends) => {
+				const friends = await bridge.send("VKWebAppCallAPIMethod", {"method": "friends.get", "params": {"v":"5.131", "user_id": user.id, "fields": "nickname,photo_50"}}).then((userFriends) => {
 					setFriendsData(userFriends)
 					console.log(userFriends)
 				});
