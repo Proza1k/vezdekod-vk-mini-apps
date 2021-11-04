@@ -21,9 +21,10 @@ const Friends = ({ id, go }) => {
     const [friendsList, setFriendsList] = useState(null)
     useEffect(() => {
         const getFriends = async () => {
-            const friends = await bridge.send("VKWebAppGetFriends", {});
-            setFriendsData(friends)
-            setFriendsList(renderingFriendsList(friendsData))
+            const friends = await bridge.send("VKWebAppGetFriends", { "multi": true }).then((data) => {
+                setFriendsData(data)
+                setFriendsList(renderingFriendsList(data))
+            });
         }
 
         getFriends()
