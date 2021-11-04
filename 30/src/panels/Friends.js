@@ -14,7 +14,7 @@ const renderingFriendsList = (friendsList) => {
     }
 }
 
-const Friends = () => {
+const Friends = ({ id, go }) => {
     const [friendsData, setFriendsData] = useState(null)
     const [FriendsList, setFriendsList] = useState(renderingFriendsList(friendsData))
     useEffect(() => {
