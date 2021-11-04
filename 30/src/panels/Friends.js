@@ -1,4 +1,5 @@
-import { Group, SimpleCell, Avatar, IconButton } from '@vkontakte/vkui'
+import { Group, SimpleCell, Avatar, IconButton, View } from '@vkontakte/vkui'
+import { Icon28RssFeedOutline } from '@vkontakte/icons';
 import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 
@@ -18,7 +19,7 @@ const FriendsList = () => {
             <Panel id="header">Вибраника</Panel>
             <Group>
                 {friendsList.data.users.map(user => {
-                    <SimpleCell before={<Avatar size={48} src={user.photo_200} />} badge={<Icon12Verified />} after={<IconButton><Icon28MessageOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>
+                    <SimpleCell before={<Avatar size={48} src={user.photo_200} />} after={<IconButton><Icon28RssFeedOutline /></IconButton>} description="Команда ВКонтакте">{user.first_name} {user.last_name}</SimpleCell>
                 })}
             </Group>
         </View>
