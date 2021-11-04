@@ -12,9 +12,13 @@ const App = () => {
   bridge.subscribe((e) => console.log(e));
   bridge.send("VKWebAppInit", {});
 
+  const getVkStorage = () => {
+    bridge.send("VKWebAppStorageGetKeys", {"count": 20, "offset": 0}).then((data) => console.log(data))
+  }
+
   return (
     <div className={cx(css.app)}>
-      <Button className={cx(css.qr_button)} onClick={getScannerQrVk}><IconsQr /></Button>
+      <Button className={cx(css.qr_button)} onClick={getVkStorage}><IconsQr /></Button>
     </div>
   );
 }
